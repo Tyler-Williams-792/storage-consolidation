@@ -1,0 +1,31 @@
+Phase 0 – Safety & Layout on TrueNAS
+complete
+
+0.1 Snapshot current Kona dataset
+complete
+
+0.2 Create a “merged” dataset + staging dirs
+complete
+
+Optional: copy current Kona into staging (for analysis without touching live)
+Skipped
+
+Phase 1 – Pull Historical Data From Fio → TrueNAS
+complete
+
+Phase 2 – Pull Workstation Data From Salem → TrueNAS
+complete
+
+Phase 3 – Hash & Catalog All Files for Dedupe
+
+
+Phase 4 – Identify Duplicates & Conflicts
+
+Phase 5 – Build the Canonical Directory Structure on Kona_merged
+
+Phase 6 – Rsync by Category (Fio/Kona/Salem → Kona_merged)
+
+Phase 7 – Sanity Check & Cutover
+
+
+
