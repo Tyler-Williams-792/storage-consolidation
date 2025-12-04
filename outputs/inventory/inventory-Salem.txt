@@ -1,0 +1,268 @@
+$  echo "===== ZPOOL STATUS ====="
+sudo zpool status
+
+echo
+echo "===== ZFS DATASETS ====="
+sudo zfs list -r -o name,used,avail,mountpoint
+
+echo
+echo "===== DISK USAGE (TOP LEVEL) ====="
+df -h
+
+echo
+echo "===== TOP LEVEL OF EACH DATASET ====="
+for m in $(zfs list -H -o mountpoint | grep '^/'); do
+    echo "---- $m ----"
+    ls -lha "$m"
+    echo
+done
+
+echo
+echo "===== TREE (2 LEVELS) ====="
+for m in $(zfs list -H -o mountpoint | grep '^/'); do
+    echo "---- $m ----"
+    tree -L 2 "$m" 2>/dev/null || echo "(no tree available)"
+    echo
+done
+
+echo
+echo "===== FOLDER SIGNATURE ====="
+find / -maxdepth 2 -type d 2>/dev/null | sort | uniq | head -n 200
+echo
+
+echo
+echo "===== NEWEST 20 FILES ====="
+find / -type f -printf "%TY-%Tm-%Td %TH:%TM %p\n" 2>/dev/null \
+    | sort -r | head -n 20
+
+echo
+echo "===== OLDEST 20 FILES ====="
+find / -type f -printf "%TY-%Tm-%Td %TH:%TM %p\n" 2>/dev/null \
+    | sort | head -n 20
+===== ZPOOL STATUS =====
+no pools available
+
+===== ZFS DATASETS =====
+no datasets available
+
+===== DISK USAGE (TOP LEVEL) =====
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           1.2G  5.5M  1.2G   1% /run
+/dev/nvme0n1p2  234G  202G   21G  91% /
+tmpfs           5.8G   59M  5.8G   1% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+efivarfs        128K   60K   64K  49% /sys/firmware/efi/efivars
+/dev/nvme0n1p1  511M  6.2M  505M   2% /boot/efi
+tmpfs           1.2G  156K  1.2G   1% /run/user/1000
+
+===== TOP LEVEL OF EACH DATASET =====
+
+===== TREE (2 LEVELS) =====
+
+===== FOLDER SIGNATURE =====
+/
+/bin.usr-is-merged
+/boot
+/boot/efi
+/boot/grub
+/cdrom
+/dev
+/dev/block
+/dev/bus
+/dev/char
+/dev/cpu
+/dev/disk
+/dev/dma_heap
+/dev/dri
+/dev/hugepages
+/dev/input
+/dev/mapper
+/dev/mqueue
+/dev/net
+/dev/pts
+/dev/shm
+/dev/snd
+/dev/usb
+/dev/vfio
+/etc
+/etc/acpi
+/etc/alsa
+/etc/alternatives
+/etc/apache2
+/etc/apm
+/etc/apparmor
+/etc/apparmor.d
+/etc/apport
+/etc/apt
+/etc/avahi
+/etc/bash_completion.d
+/etc/binfmt.d
+/etc/bluetooth
+/etc/brltty
+/etc/ca-certificates
+/etc/caddy
+/etc/chatscripts
+/etc/clamav
+/etc/cloud
+/etc/colord
+/etc/console-setup
+/etc/containerd
+/etc/cracklib
+/etc/credstore
+/etc/credstore.encrypted
+/etc/cron.d
+/etc/cron.daily
+/etc/cron.hourly
+/etc/cron.monthly
+/etc/cron.weekly
+/etc/cron.yearly
+/etc/cups
+/etc/cupshelpers
+/etc/dbus-1
+/etc/dconf
+/etc/debuginfod
+/etc/default
+/etc/depmod.d
+/etc/dhcp
+/etc/dictionaries-common
+/etc/docker
+/etc/dpkg
+/etc/emacs
+/etc/environment.d
+/etc/firefox
+/etc/fonts
+/etc/fwupd
+/etc/gdb
+/etc/gdm3
+/etc/geoclue
+/etc/ghostscript
+/etc/glvnd
+/etc/gnome
+/etc/gnome-remote-desktop
+/etc/gnutls
+/etc/groff
+/etc/grub.d
+/etc/gss
+/etc/gtk-2.0
+/etc/gtk-3.0
+/etc/hp
+/etc/ifplugd
+/etc/init
+/etc/init.d
+/etc/initramfs-tools
+/etc/insserv.conf.d
+/etc/ipp-usb
+/etc/iproute2
+/etc/kernel
+/etc/ldap
+/etc/ld.so.conf.d
+/etc/libblockdev
+/etc/libibverbs.d
+/etc/libnl-3
+/etc/libpaper.d
+/etc/libreoffice
+/etc/lighttpd
+/etc/logcheck
+/etc/logrotate.d
+/etc/lvm
+/etc/ModemManager
+/etc/modprobe.d
+/etc/modules-load.d
+/etc/netplan
+/etc/network
+/etc/networkd-dispatcher
+/etc/NetworkManager
+/etc/newt
+/etc/openvpn
+/etc/opt
+/etc/PackageKit
+/etc/pam.d
+/etc/pcmcia
+/etc/perl
+/etc/pki
+/etc/plymouth
+/etc/pm
+/etc/polkit-1
+/etc/postfix
+/etc/ppp
+/etc/profile.d
+/etc/pulse
+/etc/python3
+/etc/python3.10
+/etc/python3.12
+/etc/rc0.d
+/etc/rc1.d
+/etc/rc2.d
+/etc/rc3.d
+/etc/rc4.d
+/etc/rc5.d
+/etc/rc6.d
+/etc/rcS.d
+/etc/resolvconf
+/etc/rsyslog.d
+/etc/samba
+/etc/sane.d
+/etc/security
+/etc/selinux
+/etc/sensors.d
+/etc/sgml
+/etc/skel
+/etc/smartmontools
+/etc/snmp
+/etc/speech-dispatcher
+/etc/ssh
+/etc/ssl
+/etc/sudoers.d
+/etc/supercat
+/etc/sysctl.d
+/etc/sysstat
+/etc/systemd
+/etc/terminfo
+/etc/thermald
+/etc/thunderbird
+/etc/tmpfiles.d
+/etc/ubuntu-advantage
+/etc/udev
+/etc/udisks2
+/etc/ufw
+/etc/update-manager
+/etc/update-motd.d
+/etc/update-notifier
+/etc/UPower
+/etc/usb_modeswitch.d
+/etc/vim
+/etc/vulkan
+/etc/wpa_supplicant
+/etc/X11
+/etc/xdg
+/etc/xml
+/etc/zfs
+/home
+/home/tytrater
+/lib.usr-is-merged
+/lost+found
+/media
+/media/tytrater
+/mnt
+/mnt/drive1
+/opt
+/opt/containerd
+/opt/Synology Chat
+/proc
+/proc/1
+/proc/10026
+/proc/10079
+/proc/1012
+/proc/10280
+/proc/10337
+/proc/10428
+/proc/10503
+/proc/10766
+/proc/10819
+/proc/10911
+
+
+===== NEWEST 20 FILES =====
+
+
+

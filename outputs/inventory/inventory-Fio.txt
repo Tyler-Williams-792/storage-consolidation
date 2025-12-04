@@ -1,0 +1,61 @@
+$ echo "===== ZPOOL STATUS ====="
+sudo zpool status
+
+echo
+echo "===== ZFS DATASETS ====="
+sudo zfs list -r -o name,used,avail,mountpoint
+
+echo
+echo "===== DISK USAGE (TOP LEVEL) ====="
+df -h
+
+echo
+echo "===== TREE (2 LEVELS) ====="
+for m in $(zfs list -H -o mountpoint | grep '^/'); do
+    echo "---- $m ----"
+    tree -L 2 "$m" 2>/dev/null || echo "(no tree available)"
+    echo
+done
+
+echo
+echo "===== NEWEST 20 FILES ====="
+find / -type f -printf "%TY-%Tm-%Td %TH:%TM %p\n" 2>/dev/null \
+    | sort -r | head -n 20
+
+===== ZPOOL STATUS =====
+connect: No such file or directory
+Please make sure that the zfs-fuse daemon is running.
+internal error: failed to initialize ZFS library
+
+===== ZFS DATASETS =====
+connect: No such file or directory
+Please make sure that the zfs-fuse daemon is running.
+internal error: failed to initialize ZFS library
+
+===== DISK USAGE (TOP LEVEL) =====
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda3       465G  291G  170G  64% /sysroot
+composefs        41M   41M     0 100% /
+devtmpfs         16G     0   16G   0% /dev
+tmpfs            16G   78M   16G   1% /dev/shm
+efivarfs        128K   74K   50K  60% /sys/firmware/efi/efivars
+tmpfs           6.3G  2.0M  6.3G   1% /run
+tmpfs           1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs            16G  5.9M   16G   1% /tmp
+/dev/sda2       974M  469M  438M  52% /boot
+/dev/sda3       465G  291G  170G  64% /var
+/dev/sda1       599M   13M  587M   3% /boot/efi
+/dev/sda3       465G  291G  170G  64% /var/home
+overlay         465G  291G  170G  64% /usr/share/sddm/themes
+tmpfs           1.0M     0  1.0M   0% /run/credentials/systemd-resolved.service
+tmpfs           3.2G  116K  3.2G   1% /run/user/1000
+/dev/sdc4       1.9T  1.2T  676G  64% /run/media/fioregatto/HDD
+tmpfs           3.2G   52K  3.2G   1% /run/user/0
+
+===== TREE (2 LEVELS) =====
+connect: No such file or directory
+Please make sure that the zfs-fuse daemon is running.
+internal error: failed to initialize ZFS library
+
+===== NEWEST 20 FILES =====
+^C
