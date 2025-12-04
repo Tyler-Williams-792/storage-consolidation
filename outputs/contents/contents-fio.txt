@@ -1,0 +1,209 @@
+$ ls -lha /run/media/fioregatto/HDD
+total 3.9G
+drwxrwxrwx  1 fioregatto fioregatto 8.0K Nov 28 12:17  .
+drwxr-x---+ 3 root       root         60 Dec  3 11:32  ..
+drwxrwxrwx  1 fioregatto fioregatto 4.0K Feb 29  2024 '$RECYCLE.BIN'
+drwxrwxrwx  1 fioregatto fioregatto    0 Sep 23  2018  _acestream_cache_
+-rwxrwxrwx  1 fioregatto fioregatto  112 Mar  4  2023  bootTel.dat
+drwxrwxrwx  1 fioregatto fioregatto    0 Oct 10  2018  Config.Msi
+-rwxrwxrwx  1 fioregatto fioregatto    0 Mar 28  2024  desktop.ini
+drwxrwxrwx  1 fioregatto fioregatto 8.0K Oct 20  2024  Downloads
+-rwxrwxrwx  1 fioregatto fioregatto   43 Jun 12  2021  END
+drwxrwxrwx  1 fioregatto fioregatto    0 Oct 15 11:20  FileHistory
+drwxrwxrwx  1 fioregatto fioregatto 4.0K Nov  3  2024  Games
+-rwxrwxrwx  1 fioregatto fioregatto 2.4G Nov 28 12:17  halatali.mp4
+drwxrwxrwx  1 fioregatto fioregatto 4.0K Mar 23  2025  kona
+drwxrwxrwx  1 fioregatto fioregatto    0 Nov 10  2024  Media
+-rwxrwxrwx  1 fioregatto fioregatto  528 Nov 11  2022  MediaID.bin
+-rwxrwxrwx  1 fioregatto fioregatto 1.5G Feb 29  2024  pagefile.sys
+drwxrwxrwx  1 fioregatto fioregatto 4.0K Jul 19  2022  Programs
+drwxrwxrwx  1 fioregatto fioregatto    0 Jun  3  2024  Projects
+drwxrwxrwx  1 fioregatto fioregatto    0 Nov 23  2023  Recovery
+-rwxrwxrwx  1 fioregatto fioregatto 1.4M Apr  5  2022  rufus-3.18.exe
+drwxrwxrwx  1 fioregatto fioregatto 8.0K Oct 15 10:56 'save games'
+drwxrwxrwx  1 fioregatto fioregatto    0 Oct 15 11:08  SaveGames
+-rwxrwxrwx  1 fioregatto fioregatto  506 Dec  7  2021 'SSD (D) - Shortcut.lnk'
+drwxrwxrwx  1 fioregatto fioregatto    0 Sep  8  2018 'Steam- HDD'
+drwxrwxrwx  1 fioregatto fioregatto    0 Feb 29  2024 'Steam- SSD'
+-rwxrwxrwx  1 fioregatto fioregatto  148 Jan 27  2025  Storj-S3-Credentials-swenson-2025-01-27T20_12_25.531Z.txt
+drwxrwxrwx  1 fioregatto fioregatto 8.0K Oct 15 12:44 'System Volume Information'
+drwxrwxrwx  1 fioregatto fioregatto    0 Oct 15 11:46  WindowsImageBackup
+fioregatto@bazzite:/run/media/fioregatto/HDD$ tree -L 2 /run/media/fioregatto/HDD
+/run/media/fioregatto/HDD
+├── $RECYCLE.BIN
+│   ├── S-1-5-18
+│   ├── S-1-5-21-2704549453-2302588334-2501472247-1001
+│   ├── S-1-5-21-3958284241-3431295945-2171624583-1001
+│   ├── S-1-5-21-595436898-1363350223-213324431-1001
+│   ├── S-1-5-21-595436898-1363350223-213324431-1002
+│   └── S-1-5-21-595436898-1363350223-213324431-1005
+├── _acestream_cache_
+├── bootTel.dat
+├── Config.Msi
+├── desktop.ini
+├── Downloads
+│   ├── DirectDebitBillDueSeptember3,2018_08-13-2018.pdf
+│   ├── GameMaker-Installer-2024.8.1.171.exe
+│   ├── GitHubDesktopSetup-x64.exe
+│   ├── IMG_2207.tiff
+│   └── wiztree_4_20_setup.exe
+├── END
+├── FileHistory
+│   └── 17023
+├── Games
+│   ├── Axie
+│   ├── Enlisted
+│   ├── Epic Games
+│   ├── Guild of Guardians
+│   ├── immutable-launcher
+│   ├── Lost Relics
+│   ├── Open Loot
+│   ├── Roblox
+│   ├── Rockstar
+│   ├── SteamLibrary
+│   └── Thetan Arena
+├── halatali.mp4
+├── kona
+│   ├── AssistanceListings_DataGov_PUBLIC_WEEKLY_20240803.csv
+│   ├── Backups
+│   ├── ContractOpportunitiesFullCSV.csv
+│   ├── Culinary
+│   ├── grading.ipynb
+│   ├── Health
+│   ├── hours.jpg
+│   ├── Installers
+│   ├── Kage
+│   ├── May 18 AI Event Slide Deck.pdf
+│   ├── Media
+│   ├── migration-validation
+│   ├── NAS_Backup_Kona.sh
+│   ├── Programs
+│   ├── Projects
+│   ├── School
+│   ├── Scott Williams.txt
+│   ├── Spirit Airlines Confirmation South Carolina 20270924.pdf
+│   ├── Spirit Airlines Confirmation South Carolina 20270925.pdf
+│   ├── Synology Drive Client-3.5.1-16101-x86.exe
+│   ├── Thoughts
+│   ├── Unzipped
+│   └── Work
+├── Media
+│   └── Image
+├── MediaID.bin
+├── pagefile.sys
+├── Programs
+│   ├── Anaconda
+│   ├── AnacondaProgram
+│   ├── AutoHotkeyA32.exe
+│   ├── AutoHotkey.chm
+│   ├── AutoHotkey.exe
+│   ├── AutoHotkeyU32.exe
+│   ├── AutoHotkeyU64.exe
+│   ├── AutoHotkey Website.url
+│   ├── Compiler
+│   ├── Crypto Wallets
+│   ├── Installer.ahk
+│   ├── Java
+│   ├── Ledger Live
+│   ├── license.txt
+│   ├── Microsoft Office 2016
+│   ├── Mullvad
+│   ├── OpenHardwareMonitor
+│   ├── Plex
+│   ├── Pure VPN
+│   ├── Putty
+│   ├── Python
+│   ├── qBittorrent
+│   ├── Radeon Driver
+│   ├── Shotcut
+│   ├── Tafi Avatar Creator
+│   ├── thinkorswim
+│   ├── Think or Swim
+│   ├── Visual Paradigm
+│   ├── Visual Paradigm CE 16.3
+│   ├── VMM_v1.7.0b
+│   ├── VSeeFace-v1.13.35
+│   ├── VSeeFace-v1.13.36h
+│   ├── Webull Desktop
+│   └── WindowSpy.ahk
+├── Projects
+│   └── Discord API
+├── Recovery
+│   └── ntuser.sys
+├── rufus-3.18.exe
+├── save games
+│   ├── Adopt Feral Son.ck3
+│   ├── autosave_1.ck3
+│   ├── autosave_2.ck3
+│   ├── autosave.ck3
+│   ├── autosave_exit.ck3
+│   ├── Camp Revelry.ck3
+│   ├── Concubine.ck3
+│   ├── Contract.ck3
+│   ├── Court Positions.ck3
+│   ├── Diplomancy Contract.ck3
+│   ├── Duel.ck3
+│   ├── Execute Scheme.ck3
+│   ├── Follower Visit Realm.ck3
+│   ├── Gather Provisions.ck3
+│   ├── Go Fishing.ck3
+│   ├── High_Chieftain_Bajoras_of_Prussia_867_01_01.ck3
+│   ├── Hired Muscle.ck3
+│   ├── Hobnob with Ruler.ck3
+│   ├── Intellectual Followers.ck3
+│   ├── Learning Perk.ck3
+│   ├── Master_Klukis_of_the_Host_of_the_Scepter_867_01_01.ck3
+│   ├── Master_Klukis_of_the_Host_of_the_Scepter_869_03_05.ck3
+│   ├── Master_Klukis_of_the_Host_of_the_Scepter_874_08_04.ck3
+│   ├── Master_Klukis_of_the_Host_of_the_Scepter_875_05_24.ck3
+│   ├── Meditate in Seclusion.ck3
+│   ├── Move Camp.ck3
+│   ├── Officers.ck3
+│   ├── Patron Request.ck3
+│   ├── Raiding Party.ck3
+│   ├── Raise Army.ck3
+│   ├── Recording a Memory.ck3
+│   ├── Recruit Champions.ck3
+│   ├── Regale Court.ck3
+│   ├── Request.ck3
+│   ├── Request Contract.ck3
+│   ├── Request Patron.ck3
+│   ├── Russian Travels.ck3
+│   ├── Scholar Focuses.ck3
+│   ├── Seduce.ck3
+│   ├── Station Men-at-Arms.ck3
+│   ├── Take Concubine.ck3
+│   ├── Town Crier.ck3
+│   ├── Travel Contract.ck3
+│   ├── Tutor Child.ck3
+│   ├── Visit Tribal Holdings.ck3
+│   └── Work off some Stress.ck3
+├── SaveGames
+│   ├── CustomSetting.sav
+│   ├── LoginData.sav
+│   └── SharedGameSettings.sav
+├── SSD (D) - Shortcut.lnk
+├── Steam- HDD
+│   ├── steamapps
+│   └── steam.dll
+├── Steam- SSD
+│   ├── libraryfolder.vdf
+│   ├── steamapps
+│   └── steam.dll
+├── Storj-S3-Credentials-swenson-2025-01-27T20_12_25.531Z.txt
+├── System Volume Information
+│   ├── {3808876b-c176-4e48-b7ae-04046e6cc752}
+│   ├── AadRecoveryPasswordDelete
+│   ├── Chkdsk
+│   ├── ClientRecoveryPasswordRotation
+│   ├── {ea393824-a9fe-11f0-bc58-b06ebf2f9710}{3808876b-c176-4e48-b7ae-04046e6cc752}
+│   ├── EDP
+│   ├── IndexerVolumeGuid
+│   ├── MountPointManagerRemoteDatabase
+│   ├── SPP
+│   ├── tracking.log
+│   └── WPSettings.dat
+└── WindowsImageBackup
+    └── DESKTOP-ISLH9PF
+
+84 directories, 92 files

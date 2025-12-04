@@ -1,0 +1,515 @@
+$ # Top level
+  echo "===== LS TOP LEVEL ====="
+  ls -lha /run/media/fioregatto/HDD/kona
+
+  echo
+ # Two-level map
+  echo "===== TREE LEVEL 2 ====="
+  tree -L 2 /run/media/fioregatto/HDD/kona 2>/dev/null
+
+  echo
+ # Optional (if tree is slow)
+  echo "===== DIRECTORY LISTING (FIND) ====="
+  find /run/media/fioregatto/HDD/kona -maxdepth 2 -type d 2>/dev/null
+===== LS TOP LEVEL =====
+total 332M
+drwxrwxrwx 1 fioregatto fioregatto 4.0K Mar 23  2025  .
+drwxrwxrwx 1 fioregatto fioregatto 8.0K Nov 28 12:17  ..
+-rwxrwxrwx 1 fioregatto fioregatto  25M Aug 29  2024  AssistanceListings_DataGov_PUBLIC_WEEKLY_20240803.csv
+drwxrwxrwx 1 fioregatto fioregatto    0 Jan  9  2025  Backups
+-rwxrwxrwx 1 fioregatto fioregatto 226M Aug 29  2024  ContractOpportunitiesFullCSV.csv
+drwxrwxrwx 1 fioregatto fioregatto    0 Jan  9  2025  Culinary
+-rwxrwxrwx 1 fioregatto fioregatto  11K Feb 20  2024  .DS_Store
+-rwxrwxrwx 1 fioregatto fioregatto 8.4K Mar 23  2025  grading.ipynb
+drwxrwxrwx 1 fioregatto fioregatto    0 May 12  2025  Health
+-rwxrwxrwx 1 fioregatto fioregatto 5.3K Sep  7  2024  hours.jpg
+drwxrwxrwx 1 fioregatto fioregatto  32K Oct 15 16:44  Installers
+drwxrwxrwx 1 fioregatto fioregatto    0 Jan  9  2025  Kage
+-rwxrwxrwx 1 fioregatto fioregatto 9.8M Aug 29  2024 'May 18 AI Event Slide Deck.pdf'
+drwxrwxrwx 1 fioregatto fioregatto 4.0K Jan  9  2025  Media
+drwxrwxrwx 1 fioregatto fioregatto    0 Jan 10  2025  migration-validation
+-rwxrwxrwx 1 fioregatto fioregatto  338 Aug 13  2024  NAS_Backup_Kona.sh
+drwxrwxrwx 1 fioregatto fioregatto 4.0K Oct 15 16:48  Programs
+drwxrwxrwx 1 fioregatto fioregatto 8.0K Nov 24 15:51  Projects
+drwxrwxrwx 1 fioregatto fioregatto 4.0K Jan  9  2025  School
+-rwxrwxrwx 1 fioregatto fioregatto  116 Sep 15  2024 'Scott Williams.txt'
+-rwxrwxrwx 1 fioregatto fioregatto 857K Sep 16  2024 'Spirit Airlines Confirmation South Carolina 20270924.pdf'
+-rwxrwxrwx 1 fioregatto fioregatto 999K Sep 15  2024 'Spirit Airlines Confirmation South Carolina 20270925.pdf'
+-rwxrwxrwx 1 fioregatto fioregatto  70M Sep  4  2024 'Synology Drive Client-3.5.1-16101-x86.exe'
+drwxrwxrwx 1 fioregatto fioregatto 4.0K Jan  9  2025  Thoughts
+drwxrwxrwx 1 fioregatto fioregatto 4.0K Jan  9  2025  Unzipped
+drwxrwxrwx 1 fioregatto fioregatto 4.0K Nov 24 15:08  Work
+
+===== TREE LEVEL 2 =====
+/run/media/fioregatto/HDD/kona
+├── AssistanceListings_DataGov_PUBLIC_WEEKLY_20240803.csv
+├── Backups
+│   ├── Desktop-20240211
+│   ├── Dropbox-Backup
+│   ├── kage
+│   ├── Laptop Backup
+│   ├── School- SSD
+│   └── utilities
+├── ContractOpportunitiesFullCSV.csv
+├── Culinary
+│   └── Chef DeVito
+├── grading.ipynb
+├── Health
+│   ├── Feline
+│   ├── First Aid
+│   └── Tirzapatide
+├── hours.jpg
+├── Installers
+│   ├── 531.29-desktop-win10-win11-64bit-international-dch-whql.exe
+│   ├── 7z2406-x64.exe
+│   ├── Ace_Stream_Media_3.1.32.exe
+│   ├── Anaconda3-2023.09-0-Linux-x86_64.sh
+│   ├── Anaconda3-2024.02-1-Windows-x86_64.exe
+│   ├── Apache_OpenOffice_4.1.15_Win_x86_install_en-US.exe
+│   ├── audacity-win-3.5.1-64bit.exe
+│   ├── AutoHotkey_1.1.32.00_setup.exe
+│   ├── balenaEtcher-1.19.21.Setup.exe
+│   ├── Battle.net-Setup.exe
+│   ├── BlueStacksInstaller_5.21.120.1025_native_f7c978348142c58255d676649289f278_MDs1LDM7MTUsMTsxNSw0OzE1.exe
+│   ├── BraveBrowserSetup-BRV010.exe
+│   ├── ChampionsInstaller.exe
+│   ├── Character Swapper (CCM)-347-0-1-1586398586.zip
+│   ├── ChatGPT Installer.exe
+│   ├── CW1322A1.exe
+│   ├── deluge-1.3.3-win32-setup.exe
+│   ├── DiscordSetup.exe
+│   ├── docker-desktop-amd64.deb
+│   ├── Documents-20180911T022326Z-001.zip
+│   ├── DropboxInstaller.exe
+│   ├── DU.zip
+│   ├── Element Setup.exe
+│   ├── EpicInstaller-15.17.1.msi
+│   ├── EtheriaRestart_setup_0.0.2.exe
+│   ├── Firefox Installer.exe
+│   ├── Firefox Setup Stub 39.0.exe
+│   ├── FocusWriter_1.8.10.exe
+│   ├── FolderSize-2.6-x64.msi
+│   ├── forticlient_vpn_7.2.2.0753_amd64.deb
+│   ├── FortiClientVPNOnlineInstaller.exe
+│   ├── GalaLauncherSetup-1.1.7.exe
+│   ├── GameMaker-Installer-2024.11.0.179.exe
+│   ├── GameMaker-Installer-2024.2.0.132.exe
+│   ├── genymotion-3.7.1-linux_x64.bin
+│   ├── gimp-2.10.38-setup-1.exe
+│   ├── Git-2.45.2-64-bit.exe
+│   ├── GitHubDesktopSetup-x64.exe
+│   ├── GSnapWin32
+│   ├── GSnapWin32.zip
+│   ├── GSnapWin64.zip
+│   ├── Heroes-of-the-Storm-Setup.exe
+│   ├── Installers.rar
+│   ├── install-tl-windows.exe
+│   ├── ledger-live-desktop-2.0.1-win.exe
+│   ├── ledger-live-desktop-2.81.2-win-x64.exe
+│   ├── linuxmint-21.3-xfce-64bit.iso
+│   ├── MediaCreationTool22H2.exe
+│   ├── Microsoft.Management.Deployment.winmd
+│   ├── MullvadVPN-2023.3.exe
+│   ├── MullvadVPN-2023.4_amd64.deb
+│   ├── MullvadVPN-2023.4.exe
+│   ├── MullvadVPN-2023.5.exe
+│   ├── MullvadVPN-2023.6.exe
+│   ├── MullvadVPN-2024.1.exe
+│   ├── MullvadVPN-2024.2.exe
+│   ├── mumble-1.2.12.msi
+│   ├── mysql-8.0.32-winx64.zip
+│   ├── mysql-connector-odbc-8.1.0-winx64.msi
+│   ├── mysql-installer-web-community-8.0.32.0.msi
+│   ├── mysql-installer-web-community-8.0.39.0.msi
+│   ├── netboot.xyz.img
+│   ├── NFSClientSetup.msi
+│   ├── Ninite- 20171225.exe
+│   ├── NinjaTrader.Install.msi
+│   ├── NitroLeagueV3.2.9.exe
+│   ├── node-v20.12.2-x64.msi
+│   ├── Nox Screenshots-20180911T022223Z-001.zip
+│   ├── obs-backgroundremoval-1.1.13-windows-x64-Installer.exe
+│   ├── OBS-Studio-30.0.2-Full-Installer-x64.exe
+│   ├── OP Auto Clicker Installer.exe
+│   ├── openhardwaremonitor-v0.9.6.zip
+│   ├── Options Futures and Other Derivatives.zip
+│   ├── pcsx2-1.6.0-setup.exe
+│   ├── PlayStationNow-11.0.2.exe
+│   ├── PlexMediaServer-1.18.9.2578-513b381af-x86.exe
+│   ├── Plex Media Server.exe
+│   ├── ProtonMail-desktop.exe
+│   ├── PS2bios.rar
+│   ├── putty-64bit-0.80-installer.msi
+│   ├── qbittorrent_3.3.7_setup.exe
+│   ├── R-4.3.2-win.exe
+│   ├── R-4.4.1-win.exe
+│   ├── RaidSetup.exe
+│   ├── Razer_Synapse_Installer_v2.21.21.1.exe
+│   ├── RobloxPlayerInstaller.exe
+│   ├── RobloxStudioInstaller.exe
+│   ├── RStudio-2023.12.0-369.exe
+│   ├── RStudio-2023.12.1-402.exe
+│   ├── RStudio-2024.04.2-764.exe
+│   ├── RStudio-2024.12.0-467.exe
+│   ├── RStudio-2024.12.1-563.exe
+│   ├── RStudio-2025.05.0-496.exe
+│   ├── rtools44-6459-6401.exe
+│   ├── SkypeSetup.exe
+│   ├── Slack.msix
+│   ├── Sol.exe
+│   ├── Sol.pkg
+│   ├── SteamSetup.exe
+│   ├── Subsonic-Music.exe
+│   ├── Support-LogMeInRescue.exe
+│   ├── SWTOR New.exe
+│   ├── SWTOR_setup.exe
+│   ├── TableauDesktop-64bit-2023-2-1.exe
+│   ├── TableauDesktop-64bit-2024-2-2.exe
+│   ├── thinkorswim_x64_installer.exe
+│   ├── torrents
+│   ├── TrueNAS-13.0-U5.iso
+│   ├── TwitchStudioSetup-network_[usher-630850361][referrer-studio_page].exe
+│   ├── ubuntu-24.04.2-live-server-amd64.iso
+│   ├── UbuntuDesktop.iso
+│   ├── UbuntuServer.iso
+│   ├── uTorrent.exe
+│   ├── virtio-win-0.1.229.iso
+│   ├── virt-manager-4.1.0.tar.gz
+│   ├── virt-viewer-11.0.tar.xz
+│   ├── virt-viewer-x64-11.0-1.0.msi
+│   ├── VoicemodSetup_2.41.3.0.exe
+│   ├── Vortex (custom install location)-1-1-2-11-1588671978.exe
+│   ├── VSCodeUserSetup-x64-1.74.2.exe
+│   ├── VSCodeUserSetup-x64-1.87.2.exe
+│   ├── WhatsAppSetup.exe
+│   ├── Win10_22H2_English_x64v1.iso
+│   ├── WinDirStat-x64.msi
+│   ├── WindowsMigrationAssistantSetup.exe
+│   ├── WinSCP-6.1.1-Setup.exe
+│   ├── WinSCP-6.1.2-Setup.exe
+│   ├── WinSCP-6.3.2-Setup.exe
+│   ├── WinSCP-6.5.2-Setup.exe
+│   ├── wiztree_4_20_setup.exe
+│   ├── Work-20180911T022415Z-001.zip
+│   ├── WorkshopDemystifier-352-1-0-0-1586426614.rar
+│   ├── Zoom_cm_f5fbkkbZ9vvrZo4_mv7alMtsXkdHSNd48hoUi9EFaccnNuPUEPWIB@Ke95IKqZGDYELivD_kffdb13177f17a5c4_.exe
+│   ├── Zoom_cm_fof8yZ9vvrZo4_muQaCXrM7F2OhPIUGD1DvF1PIgZxkzKamD9I@0bTDlNxdMZyQCS-J_k7b91348db20af7b4_.exe
+│   ├── Zoom.exe
+│   └── zopener_8a4800ea0a3f43f4bafd7706c1a4e7ee.log
+├── Kage
+│   ├── Client Brochure View.png
+│   ├── IMG_4580.HEIC
+│   ├── Photo ID.png
+│   ├── Statement for Aug 29, 2024.pdf
+│   └── Statement for Sep 12, 2024.pdf
+├── May 18 AI Event Slide Deck.pdf
+├── Media
+│   ├── Audio
+│   ├── Books
+│   ├── Documents
+│   ├── Games
+│   ├── gif
+│   ├── Image
+│   ├── iPhone
+│   ├── Music
+│   ├── Nox_share
+│   ├── OBS
+│   ├── Podcasts
+│   └── Video
+├── migration-validation
+│   ├── migration_validate.ipynb
+│   ├── README.md
+│   └── test
+├── NAS_Backup_Kona.sh
+├── Programs
+│   ├── autodetectutility.exe
+│   ├── Bahh Too much Shit
+│   ├── BitTorrent
+│   ├── cdp1302.exe
+│   ├── Delu
+│   ├── Flash Cards
+│   ├── Notepad++
+│   ├── OpenHardwareMonitor
+│   ├── qBittorrent
+│   ├── Weka-3-9-6
+│   ├── Wickr
+│   └── Windows 7-Student Copy
+├── Projects
+│   ├── ai_tutor_investor_summary.html
+│   ├── Assignment 4- Pig Latin.rar
+│   ├── betime-stories
+│   ├── BlockLords
+│   ├── civic-duty
+│   ├── Community-Organizing
+│   ├── Content Creator
+│   ├── Contracting
+│   ├── customer-support-tickets
+│   ├── Discord Bot
+│   ├── dive-recovery
+│   ├── Eagle-Claw-Net
+│   ├── Finance
+│   ├── First-Aid
+│   ├── GameMaker
+│   ├── Git Tutorial
+│   ├── GTAO
+│   ├── HairSellon
+│   ├── Immutable X
+│   ├── Java
+│   ├── larance-strategies
+│   ├── llm-benchmark
+│   ├── music
+│   ├── Notebook - RYoung.ipynb
+│   ├── nvm
+│   ├── OBS
+│   ├── pathrag
+│   ├── Pick Stream
+│   ├── poker
+│   ├── Poker-old
+│   ├── Prediction-Markets
+│   ├── Prediction Markets-archive
+│   ├── Presearch
+│   ├── productivity
+│   ├── Proxmox
+│   ├── Python
+│   ├── rag
+│   ├── resume-matcher
+│   ├── Roblox
+│   ├── Sentinel Net
+│   ├── Sweat Wallet
+│   ├── Tirz
+│   ├── Tutorial
+│   ├── Twitch
+│   └── Wiki
+├── School
+│   ├── B.S. Biochemistry
+│   ├── B.S. Biochemistry- Santa Clara
+│   ├── Danielle
+│   ├── HS Transcript
+│   ├── Lock Down Browser
+│   ├── MSDataScience
+│   ├── Network Security
+│   ├── OIT
+│   ├── Pharmacy
+│   ├── Rebel Card Photo 20210826.jpg
+│   ├── Rebel Card Photo 20210830.jpg
+│   ├── test.txt
+│   ├── Unknown Date
+│   ├── VHW ArcGIS Access_files
+│   └── VHW ArcGIS Access.html
+├── Scott Williams.txt
+├── Spirit Airlines Confirmation South Carolina 20270924.pdf
+├── Spirit Airlines Confirmation South Carolina 20270925.pdf
+├── Synology Drive Client-3.5.1-16101-x86.exe
+├── Thoughts
+│   ├── Another.txt
+│   ├── Army Comic- Ambush.JPG
+│   ├── Bitchin Research Topics!
+│   ├── Bitchin Research Topics!.docx
+│   ├── Comics
+│   ├── Compilation
+│   ├── Compilation.docx
+│   ├── Data
+│   ├── Drinking Logs
+│   ├── Firefox
+│   ├── FireFox Bookmarks.html
+│   ├── Good Idears
+│   ├── Holy Shit, Guys.txt
+│   ├── Important Work
+│   ├── Ink to Text
+│   ├── Life Hacks
+│   ├── Mindless Babble
+│   ├── My Idea for A
+│   ├── Omegle Chat Logs
+│   ├── Phone
+│   ├── Projects
+│   ├── Secret Message.txt
+│   ├── Steam Chat Logs
+│   ├── Sticky Notes
+│   ├── Things to Do
+│   ├── Thoughts
+│   ├── Thoughts.torrent
+│   ├── Txt to Text
+│   ├── Tyler's Thoughts
+│   ├── Untitled 1.odt
+│   ├── Videos
+│   └── Zombie Survival
+├── Unzipped
+│   ├── plot.png
+│   ├── puter.txt
+│   ├── pve-spice.vv
+│   ├── RegAck-9213310015-selective service.pdf
+│   └── Tirzapatide_-_The_Missing_Manual-v_0_95_20230901_Compressed.pdf
+└── Work
+    ├── Animal Foundation
+    ├── ASC Math Bridge
+    ├── Blum
+    ├── Boyd-Gaming
+    ├── CANNABIS_BUSINESS_DIRECTORY.xlsx
+    ├── Cannabis Testing
+    ├── Concentrate Manufacturing
+    ├── Golden Nugget Work Schedule
+    ├── Job-Hunt
+    ├── LaRance Strategies
+    ├── Military
+    ├── Omni Interactions
+    ├── Physical Scientist Application- EPA Pathways Recent Graduate
+    ├── Private Tutoring
+    ├── RA- Nusing School
+    ├── Resumes
+    ├── Rover
+    ├── Salary-Negotiations.txt
+    ├── Schedule.xlsm
+    ├── Spring Monitoring
+    ├── Tax Returns
+    ├── test.txt
+    └── W2s
+
+143 directories, 179 files
+
+===== DIRECTORY LISTING (FIND) =====
+/run/media/fioregatto/HDD/kona
+/run/media/fioregatto/HDD/kona/Backups
+/run/media/fioregatto/HDD/kona/Backups/Desktop-20240211
+/run/media/fioregatto/HDD/kona/Backups/Dropbox-Backup
+/run/media/fioregatto/HDD/kona/Backups/kage
+/run/media/fioregatto/HDD/kona/Backups/Laptop Backup
+/run/media/fioregatto/HDD/kona/Backups/School- SSD
+/run/media/fioregatto/HDD/kona/Backups/utilities
+/run/media/fioregatto/HDD/kona/Culinary
+/run/media/fioregatto/HDD/kona/Culinary/Chef DeVito
+/run/media/fioregatto/HDD/kona/Health
+/run/media/fioregatto/HDD/kona/Health/Feline
+/run/media/fioregatto/HDD/kona/Health/First Aid
+/run/media/fioregatto/HDD/kona/Health/Tirzapatide
+/run/media/fioregatto/HDD/kona/Installers
+/run/media/fioregatto/HDD/kona/Installers/GSnapWin32
+/run/media/fioregatto/HDD/kona/Installers/torrents
+/run/media/fioregatto/HDD/kona/Kage
+/run/media/fioregatto/HDD/kona/Media
+/run/media/fioregatto/HDD/kona/Media/Audio
+/run/media/fioregatto/HDD/kona/Media/Books
+/run/media/fioregatto/HDD/kona/Media/Documents
+/run/media/fioregatto/HDD/kona/Media/Games
+/run/media/fioregatto/HDD/kona/Media/gif
+/run/media/fioregatto/HDD/kona/Media/Image
+/run/media/fioregatto/HDD/kona/Media/iPhone
+/run/media/fioregatto/HDD/kona/Media/Music
+/run/media/fioregatto/HDD/kona/Media/Nox_share
+/run/media/fioregatto/HDD/kona/Media/OBS
+/run/media/fioregatto/HDD/kona/Media/Podcasts
+/run/media/fioregatto/HDD/kona/Media/Video
+/run/media/fioregatto/HDD/kona/migration-validation
+/run/media/fioregatto/HDD/kona/migration-validation/.git
+/run/media/fioregatto/HDD/kona/Programs
+/run/media/fioregatto/HDD/kona/Programs/Bahh Too much Shit
+/run/media/fioregatto/HDD/kona/Programs/BitTorrent
+/run/media/fioregatto/HDD/kona/Programs/Delu
+/run/media/fioregatto/HDD/kona/Programs/Flash Cards
+/run/media/fioregatto/HDD/kona/Programs/Notepad++
+/run/media/fioregatto/HDD/kona/Programs/OpenHardwareMonitor
+/run/media/fioregatto/HDD/kona/Programs/qBittorrent
+/run/media/fioregatto/HDD/kona/Programs/Weka-3-9-6
+/run/media/fioregatto/HDD/kona/Programs/Wickr
+/run/media/fioregatto/HDD/kona/Programs/Windows 7-Student Copy
+/run/media/fioregatto/HDD/kona/Projects
+/run/media/fioregatto/HDD/kona/Projects/.ipynb_checkpoints
+/run/media/fioregatto/HDD/kona/Projects/betime-stories
+/run/media/fioregatto/HDD/kona/Projects/BlockLords
+/run/media/fioregatto/HDD/kona/Projects/civic-duty
+/run/media/fioregatto/HDD/kona/Projects/Community-Organizing
+/run/media/fioregatto/HDD/kona/Projects/Content Creator
+/run/media/fioregatto/HDD/kona/Projects/Contracting
+/run/media/fioregatto/HDD/kona/Projects/customer-support-tickets
+/run/media/fioregatto/HDD/kona/Projects/Discord Bot
+/run/media/fioregatto/HDD/kona/Projects/dive-recovery
+/run/media/fioregatto/HDD/kona/Projects/Eagle-Claw-Net
+/run/media/fioregatto/HDD/kona/Projects/Finance
+/run/media/fioregatto/HDD/kona/Projects/First-Aid
+/run/media/fioregatto/HDD/kona/Projects/GameMaker
+/run/media/fioregatto/HDD/kona/Projects/Git Tutorial
+/run/media/fioregatto/HDD/kona/Projects/GTAO
+/run/media/fioregatto/HDD/kona/Projects/HairSellon
+/run/media/fioregatto/HDD/kona/Projects/Immutable X
+/run/media/fioregatto/HDD/kona/Projects/Java
+/run/media/fioregatto/HDD/kona/Projects/larance-strategies
+/run/media/fioregatto/HDD/kona/Projects/llm-benchmark
+/run/media/fioregatto/HDD/kona/Projects/music
+/run/media/fioregatto/HDD/kona/Projects/nvm
+/run/media/fioregatto/HDD/kona/Projects/OBS
+/run/media/fioregatto/HDD/kona/Projects/pathrag
+/run/media/fioregatto/HDD/kona/Projects/Pick Stream
+/run/media/fioregatto/HDD/kona/Projects/poker
+/run/media/fioregatto/HDD/kona/Projects/Poker-old
+/run/media/fioregatto/HDD/kona/Projects/Prediction Markets-archive
+/run/media/fioregatto/HDD/kona/Projects/Prediction-Markets
+/run/media/fioregatto/HDD/kona/Projects/Presearch
+/run/media/fioregatto/HDD/kona/Projects/productivity
+/run/media/fioregatto/HDD/kona/Projects/Proxmox
+/run/media/fioregatto/HDD/kona/Projects/Python
+/run/media/fioregatto/HDD/kona/Projects/rag
+/run/media/fioregatto/HDD/kona/Projects/resume-matcher
+/run/media/fioregatto/HDD/kona/Projects/Roblox
+/run/media/fioregatto/HDD/kona/Projects/Sentinel Net
+/run/media/fioregatto/HDD/kona/Projects/Sweat Wallet
+/run/media/fioregatto/HDD/kona/Projects/Tirz
+/run/media/fioregatto/HDD/kona/Projects/Tutorial
+/run/media/fioregatto/HDD/kona/Projects/Twitch
+/run/media/fioregatto/HDD/kona/Projects/Wiki
+/run/media/fioregatto/HDD/kona/School
+/run/media/fioregatto/HDD/kona/School/B.S. Biochemistry
+/run/media/fioregatto/HDD/kona/School/B.S. Biochemistry- Santa Clara
+/run/media/fioregatto/HDD/kona/School/Danielle
+/run/media/fioregatto/HDD/kona/School/HS Transcript
+/run/media/fioregatto/HDD/kona/School/Lock Down Browser
+/run/media/fioregatto/HDD/kona/School/MSDataScience
+/run/media/fioregatto/HDD/kona/School/Network Security
+/run/media/fioregatto/HDD/kona/School/OIT
+/run/media/fioregatto/HDD/kona/School/Pharmacy
+/run/media/fioregatto/HDD/kona/School/Unknown Date
+/run/media/fioregatto/HDD/kona/School/VHW ArcGIS Access_files
+/run/media/fioregatto/HDD/kona/Thoughts
+/run/media/fioregatto/HDD/kona/Thoughts/Bitchin Research Topics!
+/run/media/fioregatto/HDD/kona/Thoughts/Comics
+/run/media/fioregatto/HDD/kona/Thoughts/Compilation
+/run/media/fioregatto/HDD/kona/Thoughts/Data
+/run/media/fioregatto/HDD/kona/Thoughts/Drinking Logs
+/run/media/fioregatto/HDD/kona/Thoughts/Firefox
+/run/media/fioregatto/HDD/kona/Thoughts/Good Idears
+/run/media/fioregatto/HDD/kona/Thoughts/Important Work
+/run/media/fioregatto/HDD/kona/Thoughts/Ink to Text
+/run/media/fioregatto/HDD/kona/Thoughts/Life Hacks
+/run/media/fioregatto/HDD/kona/Thoughts/Mindless Babble
+/run/media/fioregatto/HDD/kona/Thoughts/My Idea for A
+/run/media/fioregatto/HDD/kona/Thoughts/Omegle Chat Logs
+/run/media/fioregatto/HDD/kona/Thoughts/Phone
+/run/media/fioregatto/HDD/kona/Thoughts/Projects
+/run/media/fioregatto/HDD/kona/Thoughts/Steam Chat Logs
+/run/media/fioregatto/HDD/kona/Thoughts/Sticky Notes
+/run/media/fioregatto/HDD/kona/Thoughts/Things to Do
+/run/media/fioregatto/HDD/kona/Thoughts/Thoughts
+/run/media/fioregatto/HDD/kona/Thoughts/Txt to Text
+/run/media/fioregatto/HDD/kona/Thoughts/Tyler's Thoughts
+/run/media/fioregatto/HDD/kona/Thoughts/Videos
+/run/media/fioregatto/HDD/kona/Thoughts/Zombie Survival
+/run/media/fioregatto/HDD/kona/Unzipped
+/run/media/fioregatto/HDD/kona/Work
+/run/media/fioregatto/HDD/kona/Work/Animal Foundation
+/run/media/fioregatto/HDD/kona/Work/ASC Math Bridge
+/run/media/fioregatto/HDD/kona/Work/Blum
+/run/media/fioregatto/HDD/kona/Work/Boyd-Gaming
+/run/media/fioregatto/HDD/kona/Work/Cannabis Testing
+/run/media/fioregatto/HDD/kona/Work/Concentrate Manufacturing
+/run/media/fioregatto/HDD/kona/Work/Golden Nugget Work Schedule
+/run/media/fioregatto/HDD/kona/Work/Job-Hunt
+/run/media/fioregatto/HDD/kona/Work/LaRance Strategies
+/run/media/fioregatto/HDD/kona/Work/Military
+/run/media/fioregatto/HDD/kona/Work/Omni Interactions
+/run/media/fioregatto/HDD/kona/Work/Physical Scientist Application- EPA Pathways Recent Graduate
+/run/media/fioregatto/HDD/kona/Work/Private Tutoring
+/run/media/fioregatto/HDD/kona/Work/RA- Nusing School
+/run/media/fioregatto/HDD/kona/Work/Resumes
+/run/media/fioregatto/HDD/kona/Work/Rover
+/run/media/fioregatto/HDD/kona/Work/Spring Monitoring
+/run/media/fioregatto/HDD/kona/Work/Tax Returns
+/run/media/fioregatto/HDD/kona/Work/W2s
+

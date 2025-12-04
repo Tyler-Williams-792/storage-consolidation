@@ -1,0 +1,117 @@
+===== ZPOOL STATUS =====
+  pool: boot-pool
+ state: ONLINE
+  scan: scrub repaired 0B in 00:02:59 with 0 errors on Wed Dec  3 03:48:00 2025
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	boot-pool   ONLINE       0     0     0
+	  da0p2     ONLINE       0     0     0
+
+errors: No known data errors
+
+  pool: mead
+ state: ONLINE
+  scan: scrub repaired 0B in 01:28:55 with 0 errors on Sun Jan  5 01:28:55 2025
+config:
+
+	NAME                                            STATE     READ WRITE CKSUM
+	mead                                            ONLINE       0     0     0
+	  raidz1-0                                      ONLINE       0     0     0
+	    gptid/bcb841c4-3de6-11ee-9ca3-5b21d943b3b7  ONLINE       0     0     0
+	    gptid/bcc35129-3de6-11ee-9ca3-5b21d943b3b7  ONLINE       0     0     0
+	    gptid/bcce992c-3de6-11ee-9ca3-5b21d943b3b7  ONLINE       0     0     0
+	    gptid/bcada41a-3de6-11ee-9ca3-5b21d943b3b7  ONLINE       0     0     0
+	    gptid/bc984b1d-3de6-11ee-9ca3-5b21d943b3b7  ONLINE       0     0     0
+	    gptid/bb7be0ef-3de6-11ee-9ca3-5b21d943b3b7  ONLINE       0     0     0
+
+errors: No known data errors
+
+===== ZFS DATASETS =====
+NAME                                                         USED  AVAIL  MOUNTPOINT
+boot-pool                                                   3.91G  11.1G  none
+boot-pool/.system                                            888M  11.1G  legacy
+boot-pool/.system/configs-3a30009ae08f4d17abd5898e9ae66fa4  27.1M  11.1G  legacy
+boot-pool/.system/cores                                       96K  1024M  legacy
+boot-pool/.system/rrd-3a30009ae08f4d17abd5898e9ae66fa4      9.36M  11.1G  legacy
+boot-pool/.system/samba4                                     576K  11.1G  legacy
+boot-pool/.system/services                                    96K  11.1G  legacy
+boot-pool/.system/syslog-3a30009ae08f4d17abd5898e9ae66fa4   3.66M  11.1G  legacy
+boot-pool/.system/webui                                       96K  11.1G  legacy
+boot-pool/ROOT                                              3.03G  11.1G  none
+boot-pool/ROOT/13.0-U6.1                                    3.03G  11.1G  /
+boot-pool/ROOT/Initial-Install                                 8K  11.1G  legacy
+boot-pool/ROOT/default                                       276K  11.1G  legacy
+mead                                                        2.48T  1.74T  /mnt/mead
+mead/Gaming                                                  153K  1.74T  /mnt/mead/Gaming
+mead/Kona                                                   1.09T  1.74T  /mnt/mead/Kona
+mead/PVE_Dump                                               1.38T  1.74T  /mnt/mead/PVE_Dump
+mead/PVE_LXC                                                 132M  1.74T  /mnt/mead/PVE_LXC
+mead/konasmb                                                 262K  1.74T  /mnt/mead/konasmb
+
+===== DISK USAGE (TOP LEVEL) =====
+Filesystem                                                    Size    Used   Avail Capacity  Mounted on
+boot-pool/ROOT/13.0-U6.1                                       13G    1.5G     11G    12%    /
+devfs                                                         1.0K    1.0K      0B   100%    /dev
+tmpfs                                                          32M     10M     22M    32%    /etc
+tmpfs                                                         4.0M    8.0K    4.0M     0%    /mnt
+tmpfs                                                         5.3G     39M    5.3G     1%    /var
+fdescfs                                                       1.0K    1.0K      0B   100%    /dev/fd
+mead                                                          1.7T    333K    1.7T     0%    /mnt/mead
+mead/konasmb                                                  1.7T    262K    1.7T     0%    /mnt/mead/konasmb
+mead/PVE_LXC                                                  1.7T    132M    1.7T     0%    /mnt/mead/PVE_LXC
+mead/Gaming                                                   1.7T    154K    1.7T     0%    /mnt/mead/Gaming
+mead/Kona                                                     2.8T    1.1T    1.7T    39%    /mnt/mead/Kona
+mead/PVE_Dump                                                 3.1T    1.4T    1.7T    44%    /mnt/mead/PVE_Dump
+boot-pool/.system                                              12G    847M     11G     7%    /var/db/system
+boot-pool/.system/cores                                       1.0G     96K    1.0G     0%    /var/db/system/cores
+boot-pool/.system/samba4                                       11G    392K     11G     0%    /var/db/system/samba4
+boot-pool/.system/syslog-3a30009ae08f4d17abd5898e9ae66fa4      11G    3.7M     11G     0%    /var/db/system/syslog-3a30009ae08f4d17abd5898e9ae66fa4
+boot-pool/.system/rrd-3a30009ae08f4d17abd5898e9ae66fa4         11G    9.4M     11G     0%    /var/db/system/rrd-3a30009ae08f4d17abd5898e9ae66fa4
+boot-pool/.system/configs-3a30009ae08f4d17abd5898e9ae66fa4     11G     27M     11G     0%    /var/db/system/configs-3a30009ae08f4d17abd5898e9ae66fa4
+boot-pool/.system/webui                                        11G     96K     11G     0%    /var/db/system/webui
+boot-pool/.system/services                                     11G     96K     11G     0%    /var/db/system/services
+fdescfs                                                       1.0K    1.0K      0B   100%    /var/run/samba/fd
+
+===== KONA TOP LEVEL LS =====
+total 133
+drwxrwxrwx+  6 Tytrater      builtin_users     7B Dec  3 12:30 .
+drwxr-xr-x  11 root          wheel            11B Dec  1 10:43 ..
+-rwxrwxrwx+  1 Tytrater      builtin_users   5.2K Dec  3 12:30 contents-kona.txt
+drwxr-xr-x+  3 Tytrater      builtin_users     6B Oct 19  2024 migration-validation
+drwxr-xr-x   4 Tytrater      builtin_users     5B Dec 24  2024 SynologyDrive
+drwxr-xr-x+ 26 Tytrater      builtin_users    27B Jan  9  2025 SynologyDrive- 20241019
+drwxr-xr-x   2 tytrater-mac  tytrater-mac      9B Sep 11  2023 tytrater-mac
+
+===== KONA DIR STRUCTURE (DEPTH 2) =====
+/mnt/mead/Kona/migration-validation
+/mnt/mead/Kona/migration-validation/.git
+/mnt/mead/Kona/SynologyDrive
+/mnt/mead/Kona/SynologyDrive- 20241019
+/mnt/mead/Kona/SynologyDrive- 20241019/.SynologyWorkingDirectory
+/mnt/mead/Kona/SynologyDrive- 20241019/Backups
+/mnt/mead/Kona/SynologyDrive- 20241019/Budget
+/mnt/mead/Kona/SynologyDrive- 20241019/documents
+/mnt/mead/Kona/SynologyDrive- 20241019/Financial
+/mnt/mead/Kona/SynologyDrive- 20241019/Graduate Assistantship
+/mnt/mead/Kona/SynologyDrive- 20241019/Guild of Guardians
+/mnt/mead/Kona/SynologyDrive- 20241019/Health
+/mnt/mead/Kona/SynologyDrive- 20241019/Installers
+/mnt/mead/Kona/SynologyDrive- 20241019/invoice
+/mnt/mead/Kona/SynologyDrive- 20241019/iTrater
+/mnt/mead/Kona/SynologyDrive- 20241019/Kage
+/mnt/mead/Kona/SynologyDrive- 20241019/logo
+/mnt/mead/Kona/SynologyDrive- 20241019/Media
+/mnt/mead/Kona/SynologyDrive- 20241019/Media (2)
+/mnt/mead/Kona/SynologyDrive- 20241019/Media (3)
+/mnt/mead/Kona/SynologyDrive- 20241019/Media-HDD
+/mnt/mead/Kona/SynologyDrive- 20241019/Programs
+/mnt/mead/Kona/SynologyDrive- 20241019/Projects
+/mnt/mead/Kona/SynologyDrive- 20241019/School
+/mnt/mead/Kona/SynologyDrive- 20241019/Thoughts
+/mnt/mead/Kona/SynologyDrive- 20241019/unorganized
+/mnt/mead/Kona/SynologyDrive- 20241019/Unzipped
+/mnt/mead/Kona/SynologyDrive- 20241019/Work
+/mnt/mead/Kona/SynologyDrive/.SynologyWorkingDirectory
+/mnt/mead/Kona/SynologyDrive/Kona
+/mnt/mead/Kona/tytrater-mac
