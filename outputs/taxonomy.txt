@@ -1,0 +1,37 @@
+/data
+  /media
+    /audio
+    /books
+    /images
+    /iphone-photos
+    /music
+    /podcasts
+    /video
+  /personal
+    /health
+    /culinary
+    /thoughts
+    /finance
+    /documents-general
+  /work
+    /clients
+    /professional-history
+    /tax
+    /resumes
+    /w2s
+    /job-hunt
+  /users
+    /derek
+      /projects
+      /academics
+      /documents
+      /workstation-archives
+  /archives
+    /backups
+    /installers
+    /unzipped
+    /legacy
+  /homelab
+    /migration-history
+    /pve-recovery
+
