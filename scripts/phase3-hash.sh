@@ -15,8 +15,8 @@ else
     KONA_ROOT="/mnt/mead/Kona"
 fi
 
-# Logs live inside the git workspace so they can be versioned if desired
-OUTDIR="${BASE}/logs"
+# Filepath to Hashes
+OUTDIR="${BASE}/hashes"
 mkdir -p "$OUTDIR"
 
 log() {
@@ -26,7 +26,7 @@ log() {
 hash_dir() {
     LABEL="$1"
     ROOT="$2"
-    OUTFILE="${OUTDIR}/hashes_${LABEL}.tsv"
+    OUTFILE="${OUTDIR}/${LABEL}.tsv"
 
     if [ ! -d "$ROOT" ]; then
         log "SKIP: ${LABEL} root ${ROOT} does not exist; not hashing."
