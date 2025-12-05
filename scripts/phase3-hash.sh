@@ -4,6 +4,10 @@ set -e
 # Base directory for Staging Grounds
 BASE="/mnt/mead/konasmb"
 
+LOGFILE="${BASE}/logs/phase3_run_$(date +%Y%m%d-%H%M%S).log"
+exec > >(tee "$LOGFILE") 2>&1
+log "Phase 3 hashing script started"
+
 # Staging roots for each source
 FIO_ROOT="${BASE}/Staging_Fio"
 SALEM_ROOT="${BASE}/Staging_Salem"
