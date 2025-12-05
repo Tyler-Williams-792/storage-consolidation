@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-# Base directory for your git-managed migration workspace
+# Base directory for Staging Grounds
 BASE="/mnt/mead/konasmb"
 
 # Staging roots for each source
