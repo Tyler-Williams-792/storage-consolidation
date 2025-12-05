@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/local/bin/bash
 set -e
 
 # Base directory for Staging Grounds
