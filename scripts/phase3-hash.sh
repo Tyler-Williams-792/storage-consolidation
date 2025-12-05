@@ -1,18 +1,42 @@
 #!/bin/sh
 set -e
 
-OUTDIR="/mnt/mead/logs"
+# Base directory for your git-managed migration workspace
+BASE="/mnt/mead/konasmb"
+
+# Staging roots for each source
+FIO_ROOT="${BASE}/Staging_Fio"
+SALEM_ROOT="${BASE}/Staging_Salem"
+
+# For Kona, prefer a staging copy if it exists; otherwise hash the live dataset
+if [ -d "${BASE}/Staging_KonaCurrent" ]; then
+    KONA_ROOT="${BASE}/Staging_KonaCurrent"
+else
+    KONA_ROOT="/mnt/mead/Kona"
+fi
+
+# Logs live inside the git workspace so they can be versioned if desired
+OUTDIR="${BASE}/logs"
 mkdir -p "$OUTDIR"
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
 
 hash_dir() {
     LABEL="$1"
     ROOT="$2"
     OUTFILE="${OUTDIR}/hashes_${LABEL}.tsv"
 
-    echo "=== Hashing ${LABEL} at ${ROOT} ==="
+    if [ ! -d "$ROOT" ]; then
+        log "SKIP: ${LABEL} root ${ROOT} does not exist; not hashing."
+        return 0
+    fi
+
+    log "Starting hash catalog for ${LABEL} at ${ROOT}"
     : > "$OUTFILE"
 
-    # One file at a time to keep memory low; sha256 -q prints just the hash
+    # Use find -print0 + xargs -0 to safely handle weird filenames
     find "$ROOT" -type f -print0 2>/dev/null | \
     xargs -0 -n1 sh -c '
         for f; do
@@ -22,10 +46,11 @@ hash_dir() {
         done
     ' _ >> "$OUTFILE"
 
-    echo "=== Done: ${OUTFILE} ==="
+    log "Completed ${LABEL}. Output: ${OUTFILE}"
 }
 
-hash_dir "fio"   "/mnt/mead/Staging_Fio"
-hash_dir "salem" "/mnt/mead/Staging_Salem"
-hash_dir "kona"  "/mnt/mead/Kona"
+hash_dir "fio"   "$FIO_ROOT"
+hash_dir "salem" "$SALEM_ROOT"
+hash_dir "kona"  "$KONA_ROOT"
 
+log "All hashing complete."
