@@ -6,7 +6,7 @@ BASE="/mnt/mead/konasmb"
 
 LOGFILE="${BASE}/logs/phase3_run_$(date +%Y%m%d-%H%M%S).log"
 exec > >(tee "$LOGFILE") 2>&1
-log "Phase 3 hashing script started"
+log() {"Phase 3 hashing script started"}
 
 # Staging roots for each source
 FIO_ROOT="${BASE}/Staging_Fio"
@@ -36,7 +36,7 @@ hash_dir() {
         log "SKIP: ${LABEL} root ${ROOT} does not exist; not hashing."
         return 0
     fi
-
+    
     log "Starting hash catalog for ${LABEL} at ${ROOT}"
     : > "$OUTFILE"
 
