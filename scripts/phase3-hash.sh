@@ -62,8 +62,8 @@ hash_dir() {
     log "Completed ${LABEL}. Output: ${OUTFILE}"
 }
 
-hash_dir "fio"   "$FIO_ROOT"
-hash_dir "salem" "$SALEM_ROOT"
-hash_dir "kona"  "$KONA_ROOT"
+hash_dir "Fio"   "$FIO_ROOT"
+hash_dir "Salem" "$SALEM_ROOT"
+hash_dir "Kona"  "$KONA_ROOT"
 
 log "All hashing complete."
