@@ -3,9 +3,10 @@ set -euo pipefail
 
 BASE="/mnt/mead/konasmb"
 cd "${BASE}"
-LABEL="$1"                
 
-# Data directory: /mnt/mead/konasmb/Staging_Fio
+LABEL="$1"                       # e.g. Fio
+JOBS="${2:-$(sysctl -n hw.ncpu 2>/dev/null || echo 4)}"
+
 ROOT="${BASE}/Staging_${LABEL}"
 
 ALL="/tmp/${LABEL}_all.txt"
@@ -27,12 +28,22 @@ fi
 echo "[INFO] Determining missing files"
 comm -23 "${ALL}" "${HASHED}" > "${MISSING}"
 
-echo "[INFO] Hashing missing files and appending to ${HASHFILE}"
-while IFS= read -r f; do
-    [ -f "$f" ] || continue
-    h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
-    [ "$h" = "ERROR" ] && continue
-    printf "%s\t%s\n" "$h" "$f"
-done < "${MISSING}" >> "${HASHFILE}"
+if [ ! -s "${MISSING}" ]; then
+    echo "[INFO] No missing files to hash. Nothing to do."
+    exit 0
+fi
 
-echo "[INFO] Completed rehash for: ${LABEL}"
+echo "[INFO] Hashing missing files in parallel (${JOBS} jobs) and appending to ${HASHFILE}"
+
+# xargs runs multiple bash subshells in parallel; xargs itself is the *only*
+# writer to ${HASHFILE}, so the TSV won't get corrupted, even if the line order
+# is non-deterministic (which we don't care about).
+cat "${MISSING}" | xargs -P "${JOBS}" -I{} bash -c '
+    f="$1"
+    [ -f "$f" ] || exit 0
+    h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
+    [ "$h" = "ERROR" ] && exit 0
+    printf "%s\t%s\n" "$h" "$f"
+' _ "{}" >> "${HASHFILE}"
+
+echo "[INFO] Completed rehash for: ${LABEL} (parallel=${JOBS})"
