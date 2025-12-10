@@ -4,7 +4,7 @@ set -euo pipefail
 DUPES_FILE="logs/duplicates_20251210_132452.tsv"
 
 # Root identifier for the "golden" area
-KEEP_ROOT="/mnt/mead/Kona/SynologyDrive"
+KEEP_ROOT="/mnt/mead/Kona/SynologyDrive/"
 
 KEEP_LIST="outputs/keep_paths.txt"
 DELETE_LIST="outputs/delete_paths.txt"
