@@ -24,8 +24,8 @@ OUT="logs/duplicates_$(date +%Y%m%d_%H%M%S).tsv"
 # Find all hashes that appear more than once
 awk -F'\t' '
 {
-    hash=$2
-    files[hash]=files[hash] ? files[hash] ORS $1 : $1
+    hash=$1
+    files[hash]=files[hash] ? files[hash] ORS $2 : $2
     count[hash]++
 }
 END {
