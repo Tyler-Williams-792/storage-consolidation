@@ -2,13 +2,13 @@
 set -euo pipefail
 
 ###############################################################################
-# Phase 3 Hashing / Rehashing Script (Full + Incremental, Parallel)
+# Phase 3 Hashing / Rehashing Script (Full + Incremental, Parallel, Safe)
 #
 # Usage:
 #   ./phase3-hash.sh [--full|--incremental] [--jobs N] [LABEL ...]
 #
 # Examples:
-#   # Incremental (default), all known labels (Fio, Salem, Kona)
+#   # Incremental (default) for Fio, Salem, Kona
 #   ./phase3-hash.sh
 #
 #   # Incremental rehash just Fio with auto CPU job count
@@ -19,6 +19,11 @@ set -euo pipefail
 #
 #   # Full rebuild of Fio only
 #   ./phase3-hash.sh --full Fio
+#
+# Notes:
+#   - Uses sha256 -q and outputs "HASH<TAB>PATH"
+#   - Handles weird characters (quotes, spaces, etc.) safely via -print0/-0
+#   - Does NOT handle filenames containing literal newlines (same as comm).
 ###############################################################################
 
 BASE="/mnt/mead/konasmb"
@@ -96,7 +101,7 @@ done
 if [ $# -gt 0 ]; then
     LABELS=("$@")
 else
-    # Default label set, same as legacy script
+    # Default labels
     LABELS=("Fio" "Salem" "Kona")
 fi
 
@@ -140,7 +145,7 @@ get_root_for_label() {
 }
 
 # ---------------------------------------------------------------------------
-# Full rebuild hashing for one label
+# Full rebuild hashing for one label (filename-safe)
 # ---------------------------------------------------------------------------
 full_hash_label() {
     local label="$1"
@@ -155,15 +160,16 @@ full_hash_label() {
     log "FULL: Rebuilding hash catalog for ${label} at ${root} (jobs=${JOBS})"
     : > "${outfile}"
 
-    # NOTE: assumes no filenames contain newlines. Spaces/tabs are fine.
-    find "${root}" -type f | \
-    xargs -P "${JOBS}" -I{} bash -c '
-        f="$1"
-        [ -f "$f" ] || exit 0
-        h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
-        [ "$h" = "ERROR" ] && exit 0
-        printf "%s\t%s\n" "$h" "$f"
-    ' _ "{}" >> "${outfile}"
+    # Use -print0 / -0 and bash -c with "$@" to handle quotes/spaces safely
+    find "${root}" -type f -print0 | \
+    xargs -0 -P "${JOBS}" bash -c '
+        for f in "$@"; do
+            [ -f "$f" ] || continue
+            h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
+            [ "$h" = "ERROR" ] && continue
+            printf "%s\t%s\n" "$h" "$f"
+        done
+    ' _ >> "${outfile}"
 
     log "FULL: Completed ${label}. Output: ${outfile}"
 }
@@ -193,7 +199,7 @@ incremental_hash_label() {
         # TSV format: HASH<TAB>PATH
         cut -f2 "${hashfile}" | sort > "${HASHED}"
     else
-        : > "${HASHED}"  # empty file
+        : > "${HASHED}"  # empty sentinel file
     fi
 
     log "INC: Determining missing files for ${label}"
@@ -206,15 +212,17 @@ incremental_hash_label() {
 
     log "INC: Hashing missing files for ${label} in parallel (jobs=${JOBS}) and appending to ${hashfile}"
 
-    # xargs is the sole writer to ${hashfile}, so we avoid TSV corruption
-    cat "${MISSING}" | \
-    xargs -P "${JOBS}" -I{} bash -c '
-        f="$1"
-        [ -f "$f" ] || exit 0
-        h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
-        [ "$h" = "ERROR" ] && exit 0
-        printf "%s\t%s\n" "$h" "$f"
-    ' _ "{}" >> "${hashfile}"
+    # Convert newline-delimited paths in MISSING to null-delimited, then use
+    # xargs -0 + bash -c 'for f in "$@"; ...' to avoid quote issues.
+    tr '\n' '\0' < "${MISSING}" | \
+    xargs -0 -P "${JOBS}" bash -c '
+        for f in "$@"; do
+            [ -f "$f" ] || continue
+            h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
+            [ "$h" = "ERROR" ] && continue
+            printf "%s\t%s\n" "$h" "$f"
+        done
+    ' _ >> "${hashfile}"
 
     log "INC: Completed incremental hash update for ${label}"
 }
