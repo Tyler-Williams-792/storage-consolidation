@@ -13,7 +13,7 @@ TMPDIR=$(mktemp -d)
 COMBINED="$TMPDIR/all_hashes.tsv"
 
 # Combine all TSVs into a single file
-cat "$@" > "$COMBINED"
+cat /mnt/mead/konasmb/hashes > "$COMBINED"
 
 # Sort by hash (second column) for grouping
 sort -k2,2 "$COMBINED" > "$COMBINED.sorted"
