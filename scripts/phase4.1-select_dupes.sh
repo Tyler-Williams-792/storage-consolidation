@@ -1,12 +1,10 @@
 #!/usr/local/bin/bash
 set -euo pipefail
 
-# Input: duplicates.tsv (hash \t path1 \t path2 ...)
 DUPES_FILE="logs/duplicates_20251210_132452.tsv"
 
-# Substring that identifies the "golden" copy
-# Adjust this if the exact path is a little different
-KEEP_SUBSTRING="/mnt/mead/Kona/SynologyDrive/"
+# Root identifier for the "golden" area
+KEEP_ROOT="/mnt/mead/Kona/SynologyDrive"
 
 KEEP_LIST="outputs/keep_paths.txt"
 DELETE_LIST="outputs/delete_paths.txt"
@@ -15,83 +13,94 @@ DELETE_LIST="outputs/delete_paths.txt"
 : > "$KEEP_LIST"
 : > "$DELETE_LIST"
 
-awk -v keep_sub="$KEEP_SUBSTRING" \
+awk -v keep_root="$KEEP_ROOT" \
     -v keep_out="$KEEP_LIST" \
     -v del_out="$DELETE_LIST" '
-    # Called when we are done collecting a group for a given hash
-    function process_group(    keep_idx, i) {
+    # Determine priority score for a given path:
+    # 3 = SynologyDrive main (non-backup)
+    # 2 = SynologyDrive backup-ish (Backup/Backups in path)
+    # 1 = everything else
+    function path_score(p,    lower, score) {
+        lower = tolower(p)
+        score = 1
+
+        if (index(p, keep_root) > 0) {
+            # It is under SynologyDrive
+            score = 2   # baseline for SynologyDrive
+            # If it contains backup-ish patterns, treat as backup-tier
+            if (index(lower, "backup") == 0 && index(lower, "backups") == 0) {
+                # No "backup" substrings: treat as main copy
+                score = 3
+            }
+        }
+
+        return score
+    }
+
+    # Process a finished group of paths
+    function process_group(    best_idx, best_score, s, i) {
         if (path_count < 2) {
-            # Not actually duplicates, nothing to do
+            # Not actually duplicates, ignore
             return
         }
 
         group_count++
 
-        # Look for a preferred path that lives under Kona/SynologyDrive
-        keep_idx = -1
-        for (i = 1; i <= path_count; i++) {
-            if (index(paths[i], keep_sub) > 0) {
-                keep_idx = i
-                break
+        best_idx = 1
+        best_score = path_score(paths[1])
+
+        for (i = 2; i <= path_count; i++) {
+            s = path_score(paths[i])
+            if (s > best_score) {
+                best_score = s
+                best_idx = i
             }
         }
 
-        # If no preferred path, just keep the first
-        if (keep_idx == -1) {
-            keep_idx = 1
-        }
-
-        # Record the keep path
-        print paths[keep_idx] >> keep_out
+        # Keep the best-scoring path
+        print paths[best_idx] >> keep_out
         kept_total++
 
-        # Record all others as delete candidates
+        # Others are delete candidates
         for (i = 1; i <= path_count; i++) {
-            if (i == keep_idx) continue
+            if (i == best_idx) continue
             print paths[i] >> del_out
             deleted_total++
         }
     }
 
     {
-        # Strip trailing CRLF if any
-        sub(/\r$/, "", $0)
+        sub(/\r$/, "", $0)  # strip CR if present
     }
 
-    # New group header: "HASH: <hashvalue>"
+    # Group header line: "HASH: <hashvalue>"
     /^HASH:/ {
-        # If we were already in a group, process the previous one
         if (current_hash != "") {
             process_group()
         }
 
-        # Start a new group
         current_hash = $0
         gsub(/^HASH:[[:space:]]*/, "", current_hash)
 
-        # Reset path store for this hash
         delete paths
         path_count = 0
-
         next
     }
 
-    # Skip empty lines
+    # Skip blank lines
     /^[[:space:]]*$/ { next }
 
-    # Any non-HASH, non-empty line is a path for the current hash
+    # Any non-HASH, non-empty line is a path
     {
         path_count++
         paths[path_count] = $0
     }
 
     END {
-        # Process the last group at EOF
         if (current_hash != "") {
             process_group()
         }
 
-        # Progress summary
         printf("Duplicate groups processed: %d\n", group_count) > "/dev/stderr"
         printf("Total kept: %d\n", kept_total) > "/dev/stderr"
         printf("Total delete candidates: %d\n", deleted_total) > "/dev/stderr"
