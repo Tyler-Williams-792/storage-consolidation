@@ -1,69 +1,248 @@
 #!/usr/local/bin/bash
-set -e
+set -euo pipefail
 
-# Base directory for Staging Grounds
+###############################################################################
+# Phase 3 Hashing / Rehashing Script (Full + Incremental, Parallel)
+#
+# Usage:
+#   ./phase3-hash.sh [--full|--incremental] [--jobs N] [LABEL ...]
+#
+# Examples:
+#   # Incremental (default), all known labels (Fio, Salem, Kona)
+#   ./phase3-hash.sh
+#
+#   # Incremental rehash just Fio with auto CPU job count
+#   ./phase3-hash.sh Fio
+#
+#   # Full rebuild of all catalogs with 14 parallel workers
+#   ./phase3-hash.sh --full --jobs 14
+#
+#   # Full rebuild of Fio only
+#   ./phase3-hash.sh --full Fio
+###############################################################################
+
 BASE="/mnt/mead/konasmb"
+cd "${BASE}"
 
-# Logging
+# ---------------------------------------------------------------------------
+# Logging setup
+# ---------------------------------------------------------------------------
 LOGDIR="${BASE}/logs"
-mkdir -p "$LOGDIR"
+mkdir -p "${LOGDIR}"
 LOGFILE="${LOGDIR}/phase3_run_$(date +%Y%m%d-%H%M%S).log"
+
 log() {
-    printf '%s\n' "$@" | tee -a "$LOGFILE"
+    printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" | tee -a "${LOGFILE}"
 }
 
-# If using bash:
-exec > >(tee "$LOGFILE") 2>&1
+# Mirror all stdout/stderr into the log as well
+exec > >(tee -a "${LOGFILE}") 2>&1
 
 log "Phase 3 hashing script started"
 
-# Staging roots for each source
-FIO_ROOT="${BASE}/Staging_Fio"
-SALEM_ROOT="${BASE}/Staging_Salem"
+# ---------------------------------------------------------------------------
+# Defaults and CLI parsing
+# ---------------------------------------------------------------------------
+MODE="incremental"   # or "full"
+JOBS="$(sysctl -n hw.ncpu 2>/dev/null || echo 4)"
 
-# For Kona, prefer a staging copy if it exists; otherwise hash the live dataset
-if [ -d "${BASE}/Staging_KonaCurrent" ]; then
-    KONA_ROOT="${BASE}/Staging_KonaCurrent"
-else
-    KONA_ROOT="/mnt/mead/Kona"
-fi
+usage() {
+    cat <<EOF
+Usage: $0 [--full|--incremental] [--jobs N] [LABEL ...]
 
-# Filepath to Hashes
-OUTDIR="${BASE}/hashes"
-mkdir -p "$OUTDIR"
+Modes:
+  --incremental  Only hash files that are not yet in hashes/LABEL.tsv (default)
+  --full         Rebuild hashes/LABEL.tsv from scratch
 
-log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+Options:
+  --jobs N       Number of parallel workers (default: hw.ncpu or 4)
+  --help, -h     Show this help
+
+Labels:
+  If no LABELs are provided, defaults to: Fio Salem Kona
+EOF
 }
 
-hash_dir() {
-    LABEL="$1"
-    ROOT="$2"
-    OUTFILE="${OUTDIR}/${LABEL}.tsv"
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --full)
+            MODE="full"
+            shift
+            ;;
+        --incremental)
+            MODE="incremental"
+            shift
+            ;;
+        --mode)
+            MODE="$2"
+            shift 2
+            ;;
+        --jobs)
+            JOBS="$2"
+            shift 2
+            ;;
+        --help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            # First non-flag arg: treat as a label and stop parsing flags
+            break
+            ;;
+    esac
+done
 
-    if [ ! -d "$ROOT" ]; then
-        log "SKIP: ${LABEL} root ${ROOT} does not exist; not hashing."
+# Remaining args, if any, are labels
+if [ $# -gt 0 ]; then
+    LABELS=("$@")
+else
+    # Default label set, same as legacy script
+    LABELS=("Fio" "Salem" "Kona")
+fi
+
+# ---------------------------------------------------------------------------
+# Hash directory
+# ---------------------------------------------------------------------------
+OUTDIR="${BASE}/hashes"
+mkdir -p "${OUTDIR}"
+
+# ---------------------------------------------------------------------------
+# Root resolution per label (handles Kona specially)
+# ---------------------------------------------------------------------------
+get_root_for_label() {
+    local label="$1"
+    case "${label}" in
+        Fio)
+            echo "${BASE}/Staging_Fio"
+            ;;
+        Salem)
+            echo "${BASE}/Staging_Salem"
+            ;;
+        Kona)
+            # Prefer staging copy if available
+            if [ -d "${BASE}/Staging_KonaCurrent" ]; then
+                echo "${BASE}/Staging_KonaCurrent"
+            elif [ -d "/mnt/mead/Kona" ]; then
+                echo "/mnt/mead/Kona"
+            else
+                echo ""
+            fi
+            ;;
+        *)
+            # Generic fallback: Staging_<Label>
+            if [ -d "${BASE}/Staging_${label}" ]; then
+                echo "${BASE}/Staging_${label}"
+            else
+                echo ""
+            fi
+            ;;
+    esac
+}
+
+# ---------------------------------------------------------------------------
+# Full rebuild hashing for one label
+# ---------------------------------------------------------------------------
+full_hash_label() {
+    local label="$1"
+    local root="$2"
+    local outfile="${OUTDIR}/${label}.tsv"
+
+    if [ ! -d "${root}" ]; then
+        log "SKIP: ${label} root ${root} does not exist; not hashing."
         return 0
     fi
 
-    log "Starting hash catalog for ${LABEL} at ${ROOT}"
-    : > "$OUTFILE"
+    log "FULL: Rebuilding hash catalog for ${label} at ${root} (jobs=${JOBS})"
+    : > "${outfile}"
 
-    # Use find -print0 + xargs -0 to safely handle weird filenames
-    find "$ROOT" -type f -print0 2>/dev/null | \
-    xargs -0 -n1 sh -c '
-        for f; do
-            h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
-            [ "$h" = "ERROR" ] && continue
-            printf "%s\t%s\n" "$h" "$f"
-        done
-    ' _ >> "$OUTFILE"
+    # NOTE: assumes no filenames contain newlines. Spaces/tabs are fine.
+    find "${root}" -type f | \
+    xargs -P "${JOBS}" -I{} bash -c '
+        f="$1"
+        [ -f "$f" ] || exit 0
+        h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
+        [ "$h" = "ERROR" ] && exit 0
+        printf "%s\t%s\n" "$h" "$f"
+    ' _ "{}" >> "${outfile}"
 
-    log "Completed ${LABEL}. Output: ${OUTFILE}"
+    log "FULL: Completed ${label}. Output: ${outfile}"
 }
 
-hash_dir "Fio"   "$FIO_ROOT"
-hash_dir "Salem" "$SALEM_ROOT"
-hash_dir "Kona"  "$KONA_ROOT"
+# ---------------------------------------------------------------------------
+# Incremental hashing for one label (append only missing paths)
+# ---------------------------------------------------------------------------
+incremental_hash_label() {
+    local label="$1"
+    local root="$2"
+    local hashfile="${OUTDIR}/${label}.tsv"
+
+    if [ ! -d "${root}" ]; then
+        log "SKIP: ${label} root ${root} does not exist; not hashing."
+        return 0
+    fi
+
+    local ALL="/tmp/${label}_all.txt"
+    local HASHED="/tmp/${label}_hashed.txt"
+    local MISSING="/tmp/${label}_missing.txt"
+
+    log "INC: Building file list for ${label} from ${root}"
+    find "${root}" -type f | sort > "${ALL}"
+
+    log "INC: Extracting already hashed paths for ${label}"
+    if [ -f "${hashfile}" ]; then
+        # TSV format: HASH<TAB>PATH
+        cut -f2 "${hashfile}" | sort > "${HASHED}"
+    else
+        : > "${HASHED}"  # empty file
+    fi
+
+    log "INC: Determining missing files for ${label}"
+    comm -23 "${ALL}" "${HASHED}" > "${MISSING}"
+
+    if [ ! -s "${MISSING}" ]; then
+        log "INC: No missing files to hash for ${label}. Nothing to do."
+        return 0
+    fi
+
+    log "INC: Hashing missing files for ${label} in parallel (jobs=${JOBS}) and appending to ${hashfile}"
+
+    # xargs is the sole writer to ${hashfile}, so we avoid TSV corruption
+    cat "${MISSING}" | \
+    xargs -P "${JOBS}" -I{} bash -c '
+        f="$1"
+        [ -f "$f" ] || exit 0
+        h=$(sha256 -q "$f" 2>/dev/null || echo "ERROR")
+        [ "$h" = "ERROR" ] && exit 0
+        printf "%s\t%s\n" "$h" "$f"
+    ' _ "{}" >> "${hashfile}"
+
+    log "INC: Completed incremental hash update for ${label}"
+}
+
+# ---------------------------------------------------------------------------
+# Main label loop
+# ---------------------------------------------------------------------------
+log "Mode: ${MODE}, Jobs: ${JOBS}, Labels: ${LABELS[*]}"
+
+for label in "${LABELS[@]}"; do
+    root="$(get_root_for_label "${label}")"
+    if [ -z "${root}" ]; then
+        log "SKIP: No valid root found for label ${label}"
+        continue
+    fi
+
+    case "${MODE}" in
+        full)
+            full_hash_label "${label}" "${root}"
+            ;;
+        incremental)
+            incremental_hash_label "${label}" "${root}"
+            ;;
+        *)
+            log "ERROR: Unknown mode '${MODE}'"
+            exit 1
+            ;;
+    esac
+done
 
 log "All hashing complete."
