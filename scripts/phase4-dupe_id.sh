@@ -4,10 +4,10 @@ set -euo pipefail
 # Usage:
 #   ./scripts/phase4-dupe_id.sh hashes/Fio.tsv hashes/Salem.tsv hashes/Kona.tsv
 
-if [ "$#" -lt 1 ]; then
-    echo "Usage: $0 <tsv-file> [tsv-file ...]"
-    exit 1
-fi
+# if [ "$#" -lt 1 ]; then
+#     echo "Usage: $0 <tsv-file> [tsv-file ...]"
+#     exit 1
+# fi
 
 TMPDIR=$(mktemp -d)
 COMBINED="$TMPDIR/all_hashes.tsv"
