@@ -7,12 +7,12 @@
     /music
     /podcasts
     /video
-  /personal
-    /health
-    /culinary
-    /thoughts
-    /finance
-    /documents-general
+    /documents
+      /health
+      /culinary
+      /thoughts
+      /finance
+      /disorganized
   /work
     /clients
     /professional-history
@@ -24,7 +24,6 @@
     /derek
       /projects
       /academics
-      /documents
       /workstation-archives
   /archives
     /backups
