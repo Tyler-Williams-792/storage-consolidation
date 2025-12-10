@@ -15,8 +15,8 @@ COMBINED="$TMPDIR/all_hashes.tsv"
 # Combine all TSVs into a single file
 cat /mnt/mead/konasmb/hashes > "$COMBINED"
 
-# Sort by hash (second column) for grouping
-sort -k2,2 "$COMBINED" > "$COMBINED.sorted"
+# Sort by hash (first column) for grouping
+sort -k1,1 "$COMBINED" > "$COMBINED.sorted"
 
 # Output file for found duplicates
 OUT="logs/duplicates_$(date +%Y%m%d_%H%M%S).tsv"
