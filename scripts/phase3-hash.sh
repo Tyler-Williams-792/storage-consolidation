@@ -124,10 +124,10 @@ get_root_for_label() {
             echo "${BASE}/Staging_Salem"
             ;;
         SynologyDrive)
-            echo "${BASE}../Kona/SynologyDrive"
+            echo "/mnt/mead/Kona/SynologyDrive"
             ;;
         SynologyBackup)
-            echo "${BASE}../Kona/SynologyDrive-20241019"
+            echo "/mnt/mead/Kona/SynologyDrive-20241019"
             ;;
         Kona)
             # Prefer staging copy if available
