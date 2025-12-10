@@ -15,38 +15,85 @@ DELETE_LIST="outputs/delete_paths.txt"
 : > "$KEEP_LIST"
 : > "$DELETE_LIST"
 
-awk -F '\t' -v keep_sub="$KEEP_SUBSTRING" \
+awk -v keep_sub="$KEEP_SUBSTRING" \
     -v keep_out="$KEEP_LIST" \
     -v del_out="$DELETE_LIST" '
-    # Need at least: hash + 2 files to be considered a duplicate group
-    NF < 3 { next }
+    # Called when we are done collecting a group for a given hash
+    function process_group(    keep_idx, i) {
+        if (path_count < 2) {
+            # Not actually duplicates, nothing to do
+            return
+        }
 
-    {
-        hash = $1
+        group_count++
 
-        # Find the preferred file (one under Kona/SynologyDrive)
+        # Look for a preferred path that lives under Kona/SynologyDrive
         keep_idx = -1
-        for (i = 2; i <= NF; i++) {
-            if (index($i, keep_sub) > 0) {
+        for (i = 1; i <= path_count; i++) {
+            if (index(paths[i], keep_sub) > 0) {
                 keep_idx = i
                 break
             }
         }
 
-        # If no Kona/SynologyDrive match, just keep the first file in the group
+        # If no preferred path, just keep the first
         if (keep_idx == -1) {
-            keep_idx = 2
+            keep_idx = 1
         }
 
         # Record the keep path
-        print $keep_idx >> keep_out
+        print paths[keep_idx] >> keep_out
+        kept_total++
 
-        # Everything else in the group is marked for deletion
-        for (i = 2; i <= NF; i++) {
-            if (i == keep_idx) {
-                continue
-            }
-            print $i >> del_out
+        # Record all others as delete candidates
+        for (i = 1; i <= path_count; i++) {
+            if (i == keep_idx) continue
+            print paths[i] >> del_out
+            deleted_total++
         }
+    }
+
+    {
+        # Strip trailing CRLF if any
+        sub(/\r$/, "", $0)
+    }
+
+    # New group header: "HASH: <hashvalue>"
+    /^HASH:/ {
+        # If we were already in a group, process the previous one
+        if (current_hash != "") {
+            process_group()
+        }
+
+        # Start a new group
+        current_hash = $0
+        gsub(/^HASH:[[:space:]]*/, "", current_hash)
+
+        # Reset path store for this hash
+        delete paths
+        path_count = 0
+
+        next
+    }
+
+    # Skip empty lines
+    /^[[:space:]]*$/ { next }
+
+    # Any non-HASH, non-empty line is a path for the current hash
+    {
+        path_count++
+        paths[path_count] = $0
+    }
+
+    END {
+        # Process the last group at EOF
+        if (current_hash != "") {
+            process_group()
+        }
+
+        # Progress summary
+        printf("Duplicate groups processed: %d\n", group_count) > "/dev/stderr"
+        printf("Total kept: %d\n", kept_total) > "/dev/stderr"
+        printf("Total delete candidates: %d\n", deleted_total) > "/dev/stderr"
     }
 ' "$DUPES_FILE"
