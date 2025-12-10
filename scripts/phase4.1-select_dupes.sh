@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Input: duplicates.tsv (hash \t path1 \t path2 ...)
-DUPES_FILE="logs/duplicates_20251210_122930.tsv"
+DUPES_FILE="logs/duplicates_20251210_132452.tsv"
 
 # Substring that identifies the "golden" copy
 # Adjust this if the exact path is a little different
