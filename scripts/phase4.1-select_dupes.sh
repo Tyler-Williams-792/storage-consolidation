@@ -6,7 +6,7 @@ DUPES_FILE="logs/duplicates_20251210_122930.tsv"
 
 # Substring that identifies the "golden" copy
 # Adjust this if the exact path is a little different
-KEEP_SUBSTRING="/Kona/SynologyDrive/"
+KEEP_SUBSTRING="/mnt/mead/Kona/SynologyDrive/"
 
 KEEP_LIST="outputs/keep_paths.txt"
 DELETE_LIST="outputs/delete_paths.txt"
