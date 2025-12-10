@@ -8,8 +8,8 @@ DUPES_FILE="duplicates.tsv"
 # Adjust this if the exact path is a little different
 KEEP_SUBSTRING="/Kona/SynologyDrive/"
 
-KEEP_LIST="keep_paths.txt"
-DELETE_LIST="delete_paths.txt"
+KEEP_LIST="outputs/keep_paths.txt"
+DELETE_LIST="outputs/delete_paths.txt"
 
 # Truncate/initialize output files
 : > "$KEEP_LIST"
