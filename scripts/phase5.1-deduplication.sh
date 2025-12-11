@@ -53,7 +53,12 @@ echo "Creating compressed archive at ${TAR_OUTPUT} (this may take a while)..."
 
 # Compress the entire ARCHIVE_ROOT directory contents
 # -C ensures archive paths start from ARCHIVE_ROOT's contents, not full paths.
-tar -C "${ARCHIVE_ROOT}" -cf - . | zstd -T0 -o "${TAR_OUTPUT}"
+ARCHIVE_SIZE=$(du -sb "${ARCHIVE_ROOT}" | awk '{print $1}')
+
+tar -C "${ARCHIVE_ROOT}" -cf - . \
+  | pv -pterb "${ARCHIVE_SIZE}" \
+  | zstd -T0 -o "${TAR_OUTPUT}"
+
 
 echo "Archive created: ${TAR_OUTPUT}"
 echo "You can later restore from ${ARCHIVE_LOG} if needed."
