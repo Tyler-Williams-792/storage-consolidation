@@ -4,7 +4,7 @@ set -euo pipefail
 # CONFIG
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG_DIR="${PROJECT_ROOT}/logs"
-DELETE_LIST="${LOG_DIR}/delete_paths.txt"
+DELETE_LIST="${PROJECT_ROOT}/outputs/delete_paths.txt"
 
 # Archive lives under Kona, dated so you can run this multiple times safely
 RUN_DATE="$(date +%Y%m%d_%H%M%S)"
