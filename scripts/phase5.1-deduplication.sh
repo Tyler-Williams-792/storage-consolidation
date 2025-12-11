@@ -57,7 +57,7 @@ ARCHIVE_SIZE=$(du -sb "${ARCHIVE_ROOT}" | awk '{print $1}')
 
 tar -C "${ARCHIVE_ROOT}" -cf - . \
   | pv -pterb "${ARCHIVE_SIZE}" \
-  | zstd -T0 -o "${TAR_OUTPUT}"
+  | zstd -T0 -15 -o "${TAR_OUTPUT}"
 
 
 echo "Archive created: ${TAR_OUTPUT}"
