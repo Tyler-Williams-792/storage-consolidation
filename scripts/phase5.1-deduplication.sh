@@ -92,7 +92,7 @@ ARCHIVE_SIZE="${ORIG_SIZE_BYTES}"
 COMP_START=$(date +%s)
 
 tar -C "${ARCHIVE_ROOT}" -cf - . \
-  | pv -pterb "${ARCHIVE_SIZE}" \
+  | pv -pterb -s "${ARCHIVE_SIZE}" \
   | zstd -T0 -15 -o "${TAR_OUTPUT}"
 
 
